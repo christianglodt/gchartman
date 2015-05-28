@@ -1,0 +1,22 @@
+Version 0.1.2:
+
+	- Needs libxml2-2.2.7.
+	- Indicators are now stackable.
+	- XML files are used to save chart configurations. Unfortunately old
+	  configurations can not be converted automatically.
+
+Version 0.1.1:
+
+	- Fixed some memory allocation related bugs in various parts of the program.
+	- Added possibility to split stocks.
+	- Re-enabled the `Channel' module. Note that it still doesn't scale correctly.
+	- Added 2 new configure options: disable-debug and enable-optimize.
+	- configure now detects the gnome installation root by using `gnome-config --prefix'.
+	- A desktop entry is now written into the `Applications' menu.
+	- Added new script (scripts/swgetstock). Use it to get historical quotes for
+	  german NM stocks.
+
+Version 0.1.0:
+
+	- First release
+

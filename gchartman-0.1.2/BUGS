@@ -1,0 +1,19 @@
+This file describes known issues with gChartman. Unfortunately not all bugs are
+known.
+
+- Do not use umlauts (ü,ö,ä,etc) in any text you enter into the program,
+  it will crash because of an xml entity issue.
+
+- Anything that is a child of a moving average is very probably wrong. 
+
+- The channel module is broken, not ported to the new module interface,
+  and needs a rewrite. That's why it's disabled.
+
+- The comment module currently only saves 1 line of comment (xml entity issue).
+
+- alevt-cap needs the `-oldbttv' option to work with the bttv driver from the
+  Linux 2.2.18 kernel. With the bttv-0.7.25 driver from  http://www.strusel007.de
+  this was not necessary.
+
+- Lots of other stuff...
+

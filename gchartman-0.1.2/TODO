@@ -1,0 +1,53 @@
+
+Note: This does not reflect importance or any order of implementation. Typically less
+important changes are more boring to implement and might be delayed until everything
+else works :)
+
+- means not yet started
++ means implemented
+? means not yet decided upon
+& means work in progress
+
+Major Changes/Efforts:
+- Design a clean database layout.
+- Use gnome-db for compatibility with different databases (wrap data access into
+  a well defined interface).
+- Add data editor (?) (just for 1 kind of database layout?).
+- Support different data sources (streams, quotes from the net, imports).
+- Support downloading quotes into local database (libstocks).
+- Support gnome-print to print out charts.
+& Clean up the module interface.
+
+Medium Changes/Efforts:
++ Replace list of chart items with more flexible tree. Implement functions needed
+  to support the tree.
+- Add drag&drop support to quickly modify the above-mentioned tree.
+- Create a skeleton chart item module which should be really easy to understand & modify.
+- Add lots of indicators (delayed until interface stabilization & skeleton creation).
+- Implement read-only mode (guaranteed not to modify the database).
++ Move chart configurations to xml files.
+- Move videotext configuration to xml file(s).
+- Move category configuration to xml file(s).
+- Move trading time configuration to xml file(s).
+- Move any other appropriate configuration data to xml file(s).
+- Use gmodule instead of dlopen() for better portability.
+
+Minor Changes/Efforts:
+- UI polishing: Add error messages where needed, maybe druids.
+- Get someone to draw some nice icons and toolbar buttons.
+- Give exact error messages (possibly with advice) for anything database or
+  alevt-cap related.
+- Add module function to adjust saved module data after splits.
+- Write a preferences dialog, and use gnome functions for preference storage and
+  retrieval (videotext timeout, etc...).
+- Add a preference option to use the `-oldbttv' option with alevt-cap.
+- Provide sensible default (global) chart configurations.
+- Selectable default global configuration.
+- History display module.
+- add Login window combobox history
+- Make some of the widgets in the videotext window insensitive during vt capturing.
+- Add a popup menu to ChartInstance that modules can extend and display when
+  right-clicked (display menu on chart_structure_tree too?)
+
+If you want to work on some aspect of the program, please contact the mailing list
+at gchartman-devel@lists.sourceforge.net first to avoid duplicated efforts.

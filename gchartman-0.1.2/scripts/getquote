@@ -1,0 +1,37 @@
+#!/bin/bash
+
+if test $# == 2; then
+
+	wget -nv -O $1.csv 'http://charts.neuer-markt.de/nm/chartseite2b_ascii_d.txt?speech=deutsch&ascii=true&date_string=Datum&&set+'$1'=&symbol='$1'&chartNr=2&charttype=nmmax'
+	
+	if test -s $1.csv; then
+		recode ibmpc..lat1 $1.csv
+		awk 'BEGIN     {FS=";"}; \
+		     (NR > 4)  {sub(/\./,"",$2); 	#Dot to nothing in value\
+		     	        gsub(/,/,".",$2); 	#Comma to dot in value\
+			        gsub(/\./,"",$4); 	#all dots to nothing in volume\
+			        gsub(/"/,"",$1);  	#all quotes to nothing in everything\
+			        gsub(/"/,"",$2); \
+			        gsub(/"/,"",$4); \
+					split($1,a,".");	#split date from Day.Month.Year\
+					$1=a[3]"-"a[2]"-"a[1];	#reassemble as Year-Month-Day\
+			        $1=$1" 18:00:00";	#add time to date\
+			        if ($0 !~ /(C)/)	#Filter out last line\
+				printf "insert into %s (time,value,volume) values(\"%s\",%s,%s);\n",tname,$1,$2,$4;\
+			    }' tname=$2 $1.csv > $1.sql
+
+		#Uncomment if you don't want to keep the csv file
+		#rm $1.csv
+	else
+		echo
+		echo	Could not get quotes...aborted
+		echo
+	fi
+
+else
+	echo	'Usage: getquote Stockname Tablename'
+	echo	"		Stockname should be \`xxx.FSE', xxx being a 3-char ticker symbol"
+	echo	'		Tablename is the name of the table in the resulting SQL script'
+	echo	'		Output is: Stockname.csv, Stockname.sql'
+	exit 0
+fi	

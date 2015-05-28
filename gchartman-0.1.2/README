@@ -1,0 +1,44 @@
+gChartman is a Gnome program for technical stock analysis. To install
+it from source, take the usual approach:
+
+> ./configure
+> make
+> <become root>
+> make install
+
+You need a MySQL database.
+
+- Install the server (most distributions have an RPM for this).
+- Install the client libraries (some distributions have a seperate
+  RPM for these).
+- Install the development packages.
+
+Example: For a  SuSE 6.3 distribution these packages would be needed:
+	- mysql
+	- mysqlclnt
+	- mysqldev
+
+If you have problems, please read the README and documentation included
+with mysql, and especially distribution-specific READMEs (for SuSE:
+/usr/doc/packages/mysql/README.SuSE).
+
+Since version 0.1.2, gChartman needs libxml2-2.2.7 to save chart configurations.
+This means that old configurations are no longer accessible and have to be
+recreated.
+
+To capture quotes from videotext, you need a working tv-tuner card supported
+by bttv. You also need the alevt-cap program from the alevt package.
+Note that gChartman does not select tv channels for you. You can capture quotes
+while you are watching tv (tested with xawtv), and indeed you should use a tv
+viewer program to select the channel you want to capture quotes from, and
+leave it running. Test your videotext interface by trying to use alevt while
+you watch tv. If this works, you will also be able to capture quotes with
+gChartman. You need to find out if you need the `-oldbttv' option with
+alevt-cap. This option is used by default in gChartman. It is necessary for
+the bttv driver included in the kernel. It is not necessary when you use the
+bttv driver from http://www.strusel007.de/. If videotext capturing times out
+even though you have good reception, edit src/getvtquotes.c and define/undef the
+OLDBTTV define.
+
+Note: Usually you can not capture videotext data with a digital satellite receiver
+connected to your tv-tuner cards composite video input. Analog receivers are ok.

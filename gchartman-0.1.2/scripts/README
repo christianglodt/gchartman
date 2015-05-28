@@ -1,0 +1,44 @@
+The scripts in this directory have been written during the
+development of the main program. They all use awk, some use sed,
+and all generate sql scripts. They are not very polished. Execute
+them without parameters to see what parameters they expect.
+Here's a description of what they do:
+
+csv2sql:
+	This script is not useful anymore. It transforms csv files
+	downloaded from www.neuer-markt.de to sql-scripts. Unfortunately,
+	neuer-markt.de doesn't provide csv files anymore.
+
+getquote:
+	This is the same as `csv2sql', but it downloads the csv file
+	from neuer-markt.de by itself (using wget). Like `csv2sql', it
+	doesn't work anymore.
+
+speku2sql:
+	This converts csv files exported by `Spekulator' (which is a windows
+	freeware program, see http://rcswww.urz.tu-dresden.de/~roos/S_home.htm).
+	It creates a complete database.
+
+swcsv2sql:
+	This converts csv files that can be downloaded from www.stockwatch.de.
+
+swgetnemax:
+	This downloads all the csv files for all the stocks that are listed on
+	the stockwatch.de site in the Nemax All Share index. It takes a lot of
+	time if you are on a slow net connection. It creates a complete database.
+
+swgetstock:
+	This downloads a csv file for one stock from the stockwatch.de site and
+	creates script for it. It is good to get data for a stock you are interested
+	in.
+
+txt2speku:
+	This converts .txt files (found on http://www-public.tu-bs.de:8080/~y0003876/index.html)
+	to csv files that can be imported into the `Spekulator' windows program.
+
+txt2sql:
+	This converts .txt files (found on http://www-public.tu-bs.de:8080/~y0003876/index.html)
+	to sql scripts.
+
+vtsettings.sql:
+	This sql script contains my videotext configuration for the german news channel n-tv.

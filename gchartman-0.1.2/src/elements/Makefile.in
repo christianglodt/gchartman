@@ -1,0 +1,623 @@
+# Makefile.in generated automatically by automake 1.4 from Makefile.am
+
+# Copyright (C) 1994, 1995-8, 1999 Free Software Foundation, Inc.
+# This Makefile.in is free software; the Free Software Foundation
+# gives unlimited permission to copy and/or distribute it,
+# with or without modifications, as long as this notice is preserved.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY, to the extent permitted by law; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE.
+
+
+SHELL = @SHELL@
+
+srcdir = @srcdir@
+top_srcdir = @top_srcdir@
+VPATH = @srcdir@
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+
+bindir = @bindir@
+sbindir = @sbindir@
+libexecdir = @libexecdir@
+datadir = @datadir@
+sysconfdir = @sysconfdir@
+sharedstatedir = @sharedstatedir@
+localstatedir = @localstatedir@
+infodir = @infodir@
+mandir = @mandir@
+includedir = @includedir@
+oldincludedir = /usr/include
+
+DESTDIR =
+
+pkgdatadir = $(datadir)/@PACKAGE@
+pkglibdir = $(libdir)/@PACKAGE@
+pkgincludedir = $(includedir)/@PACKAGE@
+
+top_builddir = ../..
+
+ACLOCAL = @ACLOCAL@
+AUTOCONF = @AUTOCONF@
+AUTOMAKE = @AUTOMAKE@
+AUTOHEADER = @AUTOHEADER@
+
+INSTALL = @INSTALL@
+INSTALL_PROGRAM = @INSTALL_PROGRAM@ $(AM_INSTALL_PROGRAM_FLAGS)
+INSTALL_DATA = @INSTALL_DATA@
+INSTALL_SCRIPT = @INSTALL_SCRIPT@
+transform = @program_transform_name@
+
+NORMAL_INSTALL = :
+PRE_INSTALL = :
+POST_INSTALL = :
+NORMAL_UNINSTALL = :
+PRE_UNINSTALL = :
+POST_UNINSTALL = :
+host_alias = @host_alias@
+host_triplet = @host@
+AS = @AS@
+CC = @CC@
+DLLTOOL = @DLLTOOL@
+GCHARTMAN_VERSION = @GCHARTMAN_VERSION@
+GLIB_CFLAGS = @GLIB_CFLAGS@
+GLIB_CONFIG = @GLIB_CONFIG@
+GLIB_LIBS = @GLIB_LIBS@
+GNOME_PREFIX = @GNOME_PREFIX@
+GTK_CFLAGS = @GTK_CFLAGS@
+GTK_CONFIG = @GTK_CONFIG@
+GTK_LIBS = @GTK_LIBS@
+LD = @LD@
+LIBTOOL = @LIBTOOL@
+LN_S = @LN_S@
+MAKEINFO = @MAKEINFO@
+NM = @NM@
+OBJDUMP = @OBJDUMP@
+PACKAGE = @PACKAGE@
+RANLIB = @RANLIB@
+VERSION = @VERSION@
+XML_CFLAGS = @XML_CFLAGS@
+XML_CONFIG = @XML_CONFIG@
+XML_LIBS = @XML_LIBS@
+gnomepath = @gnomepath@
+libgladepath = @libgladepath@
+plugindir = @plugindir@
+
+lib_LTLIBRARIES = libmain_chart.la libx-axis.la liby-axis.la libtrendline.la libmovavg.la 		  libchannel.la librsi.la libmomentum.la libbuysell.la libcomment.la
+
+
+CFLAGS = @CFLAGS@ -Wall -DPLUGINDIR=\"@plugindir@\"
+LDFLAGS = 
+
+libdir = $(plugindir)
+
+EXTRA_DIST = x-axisprop.glade main_chartprop.glade movavgprop.glade rsiprop.glade 	     momentumprop.glade buysellprop.glade trendline.png movavg.png 	     channel.png rsi.png momentum.png buysell.png comment.png 	     commentprop.glade
+
+
+mainchartpropdir = @plugindir@
+mainchartprop_DATA = main_chartprop.glade
+libmain_chart_la_LDFLAGS = -module -export-dynamic -avoid-version
+libmain_chart_la_SOURCES = main_chart.c
+
+xaxispropdir = @plugindir@
+xaxisprop_DATA = x-axisprop.glade
+libx_axis_la_LDFLAGS = -module -export-dynamic -avoid-version
+libx_axis_la_SOURCES = x-axis.c
+
+liby_axis_la_LDFLAGS = -module -export-dynamic -avoid-version
+liby_axis_la_SOURCES = y-axis.c
+
+trendlinepropdir = @plugindir@
+trendlineprop_DATA = trendline.png
+libtrendline_la_LDFLAGS = -module -export-dynamic -avoid-version
+libtrendline_la_SOURCES = trendline.c
+
+movavgpropdir = @plugindir@
+movavgprop_DATA = movavgprop.glade movavg.png
+libmovavg_la_LDFLAGS = -module -export-dynamic -avoid-version
+libmovavg_la_SOURCES = movavg.c
+
+libchannelpropdir = @plugindir@
+libchannelprop_DATA = channel.png
+libchannel_la_LDFLAGS = -module -export-dynamic -avoid-version
+libchannel_la_SOURCES = channel.c
+
+rsipropdir = @plugindir@
+rsiprop_DATA = rsiprop.glade rsi.png
+librsi_la_LDFLAGS = -module -export-dynamic -avoid-version
+librsi_la_SOURCES = rsi.c
+
+momentumpropdir = @plugindir@
+momentumprop_DATA = momentumprop.glade momentum.png
+libmomentum_la_LDFLAGS = -module -export-dynamic -avoid-version
+libmomentum_la_SOURCES = momentum.c
+
+buysellpropdir = @plugindir@
+buysellprop_DATA = buysellprop.glade buysell.png
+libbuysell_la_LDFLAGS = -module -export-dynamic -avoid-version
+libbuysell_la_SOURCES = buysell.c
+
+commentpropdir = @plugindir@
+commentprop_DATA = commentprop.glade comment.png
+libcomment_la_LDFLAGS = -module -export-dynamic -avoid-version
+libcomment_la_SOURCES = comment.c
+mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
+CONFIG_CLEAN_FILES = 
+LTLIBRARIES =  $(lib_LTLIBRARIES)
+
+
+DEFS = @DEFS@ -I. -I$(srcdir) 
+CPPFLAGS = @CPPFLAGS@
+LIBS = @LIBS@
+libmain_chart_la_LIBADD = 
+libmain_chart_la_OBJECTS =  main_chart.lo
+libx_axis_la_LIBADD = 
+libx_axis_la_OBJECTS =  x-axis.lo
+liby_axis_la_LIBADD = 
+liby_axis_la_OBJECTS =  y-axis.lo
+libtrendline_la_LIBADD = 
+libtrendline_la_OBJECTS =  trendline.lo
+libmovavg_la_LIBADD = 
+libmovavg_la_OBJECTS =  movavg.lo
+libchannel_la_LIBADD = 
+libchannel_la_OBJECTS =  channel.lo
+librsi_la_LIBADD = 
+librsi_la_OBJECTS =  rsi.lo
+libmomentum_la_LIBADD = 
+libmomentum_la_OBJECTS =  momentum.lo
+libbuysell_la_LIBADD = 
+libbuysell_la_OBJECTS =  buysell.lo
+libcomment_la_LIBADD = 
+libcomment_la_OBJECTS =  comment.lo
+COMPILE = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+LTCOMPILE = $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+CCLD = $(CC)
+LINK = $(LIBTOOL) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(LDFLAGS) -o $@
+DATA =  $(buysellprop_DATA) $(commentprop_DATA) $(libchannelprop_DATA) \
+$(mainchartprop_DATA) $(momentumprop_DATA) $(movavgprop_DATA) \
+$(rsiprop_DATA) $(trendlineprop_DATA) $(xaxisprop_DATA)
+
+DIST_COMMON =  Makefile.am Makefile.in
+
+
+DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
+
+TAR = tar
+GZIP_ENV = --best
+SOURCES = $(libmain_chart_la_SOURCES) $(libx_axis_la_SOURCES) $(liby_axis_la_SOURCES) $(libtrendline_la_SOURCES) $(libmovavg_la_SOURCES) $(libchannel_la_SOURCES) $(librsi_la_SOURCES) $(libmomentum_la_SOURCES) $(libbuysell_la_SOURCES) $(libcomment_la_SOURCES)
+OBJECTS = $(libmain_chart_la_OBJECTS) $(libx_axis_la_OBJECTS) $(liby_axis_la_OBJECTS) $(libtrendline_la_OBJECTS) $(libmovavg_la_OBJECTS) $(libchannel_la_OBJECTS) $(librsi_la_OBJECTS) $(libmomentum_la_OBJECTS) $(libbuysell_la_OBJECTS) $(libcomment_la_OBJECTS)
+
+all: all-redirect
+.SUFFIXES:
+.SUFFIXES: .S .c .lo .o .s
+$(srcdir)/Makefile.in: Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
+	cd $(top_srcdir) && $(AUTOMAKE) --gnu --include-deps src/elements/Makefile
+
+Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status
+	cd $(top_builddir) \
+	  && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= $(SHELL) ./config.status
+
+
+mostlyclean-libLTLIBRARIES:
+
+clean-libLTLIBRARIES:
+	-test -z "$(lib_LTLIBRARIES)" || rm -f $(lib_LTLIBRARIES)
+
+distclean-libLTLIBRARIES:
+
+maintainer-clean-libLTLIBRARIES:
+
+install-libLTLIBRARIES: $(lib_LTLIBRARIES)
+	@$(NORMAL_INSTALL)
+	$(mkinstalldirs) $(DESTDIR)$(libdir)
+	@list='$(lib_LTLIBRARIES)'; for p in $$list; do \
+	  if test -f $$p; then \
+	    echo "$(LIBTOOL)  --mode=install $(INSTALL) $$p $(DESTDIR)$(libdir)/$$p"; \
+	    $(LIBTOOL)  --mode=install $(INSTALL) $$p $(DESTDIR)$(libdir)/$$p; \
+	  else :; fi; \
+	done
+
+uninstall-libLTLIBRARIES:
+	@$(NORMAL_UNINSTALL)
+	list='$(lib_LTLIBRARIES)'; for p in $$list; do \
+	  $(LIBTOOL)  --mode=uninstall rm -f $(DESTDIR)$(libdir)/$$p; \
+	done
+
+.c.o:
+	$(COMPILE) -c $<
+
+.s.o:
+	$(COMPILE) -c $<
+
+.S.o:
+	$(COMPILE) -c $<
+
+mostlyclean-compile:
+	-rm -f *.o core *.core
+
+clean-compile:
+
+distclean-compile:
+	-rm -f *.tab.c
+
+maintainer-clean-compile:
+
+.c.lo:
+	$(LIBTOOL) --mode=compile $(COMPILE) -c $<
+
+.s.lo:
+	$(LIBTOOL) --mode=compile $(COMPILE) -c $<
+
+.S.lo:
+	$(LIBTOOL) --mode=compile $(COMPILE) -c $<
+
+mostlyclean-libtool:
+	-rm -f *.lo
+
+clean-libtool:
+	-rm -rf .libs _libs
+
+distclean-libtool:
+
+maintainer-clean-libtool:
+
+libmain_chart.la: $(libmain_chart_la_OBJECTS) $(libmain_chart_la_DEPENDENCIES)
+	$(LINK) -rpath $(libdir) $(libmain_chart_la_LDFLAGS) $(libmain_chart_la_OBJECTS) $(libmain_chart_la_LIBADD) $(LIBS)
+
+libx-axis.la: $(libx_axis_la_OBJECTS) $(libx_axis_la_DEPENDENCIES)
+	$(LINK) -rpath $(libdir) $(libx_axis_la_LDFLAGS) $(libx_axis_la_OBJECTS) $(libx_axis_la_LIBADD) $(LIBS)
+
+liby-axis.la: $(liby_axis_la_OBJECTS) $(liby_axis_la_DEPENDENCIES)
+	$(LINK) -rpath $(libdir) $(liby_axis_la_LDFLAGS) $(liby_axis_la_OBJECTS) $(liby_axis_la_LIBADD) $(LIBS)
+
+libtrendline.la: $(libtrendline_la_OBJECTS) $(libtrendline_la_DEPENDENCIES)
+	$(LINK) -rpath $(libdir) $(libtrendline_la_LDFLAGS) $(libtrendline_la_OBJECTS) $(libtrendline_la_LIBADD) $(LIBS)
+
+libmovavg.la: $(libmovavg_la_OBJECTS) $(libmovavg_la_DEPENDENCIES)
+	$(LINK) -rpath $(libdir) $(libmovavg_la_LDFLAGS) $(libmovavg_la_OBJECTS) $(libmovavg_la_LIBADD) $(LIBS)
+
+libchannel.la: $(libchannel_la_OBJECTS) $(libchannel_la_DEPENDENCIES)
+	$(LINK) -rpath $(libdir) $(libchannel_la_LDFLAGS) $(libchannel_la_OBJECTS) $(libchannel_la_LIBADD) $(LIBS)
+
+librsi.la: $(librsi_la_OBJECTS) $(librsi_la_DEPENDENCIES)
+	$(LINK) -rpath $(libdir) $(librsi_la_LDFLAGS) $(librsi_la_OBJECTS) $(librsi_la_LIBADD) $(LIBS)
+
+libmomentum.la: $(libmomentum_la_OBJECTS) $(libmomentum_la_DEPENDENCIES)
+	$(LINK) -rpath $(libdir) $(libmomentum_la_LDFLAGS) $(libmomentum_la_OBJECTS) $(libmomentum_la_LIBADD) $(LIBS)
+
+libbuysell.la: $(libbuysell_la_OBJECTS) $(libbuysell_la_DEPENDENCIES)
+	$(LINK) -rpath $(libdir) $(libbuysell_la_LDFLAGS) $(libbuysell_la_OBJECTS) $(libbuysell_la_LIBADD) $(LIBS)
+
+libcomment.la: $(libcomment_la_OBJECTS) $(libcomment_la_DEPENDENCIES)
+	$(LINK) -rpath $(libdir) $(libcomment_la_LDFLAGS) $(libcomment_la_OBJECTS) $(libcomment_la_LIBADD) $(LIBS)
+
+install-buysellpropDATA: $(buysellprop_DATA)
+	@$(NORMAL_INSTALL)
+	$(mkinstalldirs) $(DESTDIR)$(buysellpropdir)
+	@list='$(buysellprop_DATA)'; for p in $$list; do \
+	  if test -f $(srcdir)/$$p; then \
+	    echo " $(INSTALL_DATA) $(srcdir)/$$p $(DESTDIR)$(buysellpropdir)/$$p"; \
+	    $(INSTALL_DATA) $(srcdir)/$$p $(DESTDIR)$(buysellpropdir)/$$p; \
+	  else if test -f $$p; then \
+	    echo " $(INSTALL_DATA) $$p $(DESTDIR)$(buysellpropdir)/$$p"; \
+	    $(INSTALL_DATA) $$p $(DESTDIR)$(buysellpropdir)/$$p; \
+	  fi; fi; \
+	done
+
+uninstall-buysellpropDATA:
+	@$(NORMAL_UNINSTALL)
+	list='$(buysellprop_DATA)'; for p in $$list; do \
+	  rm -f $(DESTDIR)$(buysellpropdir)/$$p; \
+	done
+
+install-commentpropDATA: $(commentprop_DATA)
+	@$(NORMAL_INSTALL)
+	$(mkinstalldirs) $(DESTDIR)$(commentpropdir)
+	@list='$(commentprop_DATA)'; for p in $$list; do \
+	  if test -f $(srcdir)/$$p; then \
+	    echo " $(INSTALL_DATA) $(srcdir)/$$p $(DESTDIR)$(commentpropdir)/$$p"; \
+	    $(INSTALL_DATA) $(srcdir)/$$p $(DESTDIR)$(commentpropdir)/$$p; \
+	  else if test -f $$p; then \
+	    echo " $(INSTALL_DATA) $$p $(DESTDIR)$(commentpropdir)/$$p"; \
+	    $(INSTALL_DATA) $$p $(DESTDIR)$(commentpropdir)/$$p; \
+	  fi; fi; \
+	done
+
+uninstall-commentpropDATA:
+	@$(NORMAL_UNINSTALL)
+	list='$(commentprop_DATA)'; for p in $$list; do \
+	  rm -f $(DESTDIR)$(commentpropdir)/$$p; \
+	done
+
+install-libchannelpropDATA: $(libchannelprop_DATA)
+	@$(NORMAL_INSTALL)
+	$(mkinstalldirs) $(DESTDIR)$(libchannelpropdir)
+	@list='$(libchannelprop_DATA)'; for p in $$list; do \
+	  if test -f $(srcdir)/$$p; then \
+	    echo " $(INSTALL_DATA) $(srcdir)/$$p $(DESTDIR)$(libchannelpropdir)/$$p"; \
+	    $(INSTALL_DATA) $(srcdir)/$$p $(DESTDIR)$(libchannelpropdir)/$$p; \
+	  else if test -f $$p; then \
+	    echo " $(INSTALL_DATA) $$p $(DESTDIR)$(libchannelpropdir)/$$p"; \
+	    $(INSTALL_DATA) $$p $(DESTDIR)$(libchannelpropdir)/$$p; \
+	  fi; fi; \
+	done
+
+uninstall-libchannelpropDATA:
+	@$(NORMAL_UNINSTALL)
+	list='$(libchannelprop_DATA)'; for p in $$list; do \
+	  rm -f $(DESTDIR)$(libchannelpropdir)/$$p; \
+	done
+
+install-mainchartpropDATA: $(mainchartprop_DATA)
+	@$(NORMAL_INSTALL)
+	$(mkinstalldirs) $(DESTDIR)$(mainchartpropdir)
+	@list='$(mainchartprop_DATA)'; for p in $$list; do \
+	  if test -f $(srcdir)/$$p; then \
+	    echo " $(INSTALL_DATA) $(srcdir)/$$p $(DESTDIR)$(mainchartpropdir)/$$p"; \
+	    $(INSTALL_DATA) $(srcdir)/$$p $(DESTDIR)$(mainchartpropdir)/$$p; \
+	  else if test -f $$p; then \
+	    echo " $(INSTALL_DATA) $$p $(DESTDIR)$(mainchartpropdir)/$$p"; \
+	    $(INSTALL_DATA) $$p $(DESTDIR)$(mainchartpropdir)/$$p; \
+	  fi; fi; \
+	done
+
+uninstall-mainchartpropDATA:
+	@$(NORMAL_UNINSTALL)
+	list='$(mainchartprop_DATA)'; for p in $$list; do \
+	  rm -f $(DESTDIR)$(mainchartpropdir)/$$p; \
+	done
+
+install-momentumpropDATA: $(momentumprop_DATA)
+	@$(NORMAL_INSTALL)
+	$(mkinstalldirs) $(DESTDIR)$(momentumpropdir)
+	@list='$(momentumprop_DATA)'; for p in $$list; do \
+	  if test -f $(srcdir)/$$p; then \
+	    echo " $(INSTALL_DATA) $(srcdir)/$$p $(DESTDIR)$(momentumpropdir)/$$p"; \
+	    $(INSTALL_DATA) $(srcdir)/$$p $(DESTDIR)$(momentumpropdir)/$$p; \
+	  else if test -f $$p; then \
+	    echo " $(INSTALL_DATA) $$p $(DESTDIR)$(momentumpropdir)/$$p"; \
+	    $(INSTALL_DATA) $$p $(DESTDIR)$(momentumpropdir)/$$p; \
+	  fi; fi; \
+	done
+
+uninstall-momentumpropDATA:
+	@$(NORMAL_UNINSTALL)
+	list='$(momentumprop_DATA)'; for p in $$list; do \
+	  rm -f $(DESTDIR)$(momentumpropdir)/$$p; \
+	done
+
+install-movavgpropDATA: $(movavgprop_DATA)
+	@$(NORMAL_INSTALL)
+	$(mkinstalldirs) $(DESTDIR)$(movavgpropdir)
+	@list='$(movavgprop_DATA)'; for p in $$list; do \
+	  if test -f $(srcdir)/$$p; then \
+	    echo " $(INSTALL_DATA) $(srcdir)/$$p $(DESTDIR)$(movavgpropdir)/$$p"; \
+	    $(INSTALL_DATA) $(srcdir)/$$p $(DESTDIR)$(movavgpropdir)/$$p; \
+	  else if test -f $$p; then \
+	    echo " $(INSTALL_DATA) $$p $(DESTDIR)$(movavgpropdir)/$$p"; \
+	    $(INSTALL_DATA) $$p $(DESTDIR)$(movavgpropdir)/$$p; \
+	  fi; fi; \
+	done
+
+uninstall-movavgpropDATA:
+	@$(NORMAL_UNINSTALL)
+	list='$(movavgprop_DATA)'; for p in $$list; do \
+	  rm -f $(DESTDIR)$(movavgpropdir)/$$p; \
+	done
+
+install-rsipropDATA: $(rsiprop_DATA)
+	@$(NORMAL_INSTALL)
+	$(mkinstalldirs) $(DESTDIR)$(rsipropdir)
+	@list='$(rsiprop_DATA)'; for p in $$list; do \
+	  if test -f $(srcdir)/$$p; then \
+	    echo " $(INSTALL_DATA) $(srcdir)/$$p $(DESTDIR)$(rsipropdir)/$$p"; \
+	    $(INSTALL_DATA) $(srcdir)/$$p $(DESTDIR)$(rsipropdir)/$$p; \
+	  else if test -f $$p; then \
+	    echo " $(INSTALL_DATA) $$p $(DESTDIR)$(rsipropdir)/$$p"; \
+	    $(INSTALL_DATA) $$p $(DESTDIR)$(rsipropdir)/$$p; \
+	  fi; fi; \
+	done
+
+uninstall-rsipropDATA:
+	@$(NORMAL_UNINSTALL)
+	list='$(rsiprop_DATA)'; for p in $$list; do \
+	  rm -f $(DESTDIR)$(rsipropdir)/$$p; \
+	done
+
+install-trendlinepropDATA: $(trendlineprop_DATA)
+	@$(NORMAL_INSTALL)
+	$(mkinstalldirs) $(DESTDIR)$(trendlinepropdir)
+	@list='$(trendlineprop_DATA)'; for p in $$list; do \
+	  if test -f $(srcdir)/$$p; then \
+	    echo " $(INSTALL_DATA) $(srcdir)/$$p $(DESTDIR)$(trendlinepropdir)/$$p"; \
+	    $(INSTALL_DATA) $(srcdir)/$$p $(DESTDIR)$(trendlinepropdir)/$$p; \
+	  else if test -f $$p; then \
+	    echo " $(INSTALL_DATA) $$p $(DESTDIR)$(trendlinepropdir)/$$p"; \
+	    $(INSTALL_DATA) $$p $(DESTDIR)$(trendlinepropdir)/$$p; \
+	  fi; fi; \
+	done
+
+uninstall-trendlinepropDATA:
+	@$(NORMAL_UNINSTALL)
+	list='$(trendlineprop_DATA)'; for p in $$list; do \
+	  rm -f $(DESTDIR)$(trendlinepropdir)/$$p; \
+	done
+
+install-xaxispropDATA: $(xaxisprop_DATA)
+	@$(NORMAL_INSTALL)
+	$(mkinstalldirs) $(DESTDIR)$(xaxispropdir)
+	@list='$(xaxisprop_DATA)'; for p in $$list; do \
+	  if test -f $(srcdir)/$$p; then \
+	    echo " $(INSTALL_DATA) $(srcdir)/$$p $(DESTDIR)$(xaxispropdir)/$$p"; \
+	    $(INSTALL_DATA) $(srcdir)/$$p $(DESTDIR)$(xaxispropdir)/$$p; \
+	  else if test -f $$p; then \
+	    echo " $(INSTALL_DATA) $$p $(DESTDIR)$(xaxispropdir)/$$p"; \
+	    $(INSTALL_DATA) $$p $(DESTDIR)$(xaxispropdir)/$$p; \
+	  fi; fi; \
+	done
+
+uninstall-xaxispropDATA:
+	@$(NORMAL_UNINSTALL)
+	list='$(xaxisprop_DATA)'; for p in $$list; do \
+	  rm -f $(DESTDIR)$(xaxispropdir)/$$p; \
+	done
+
+tags: TAGS
+
+ID: $(HEADERS) $(SOURCES) $(LISP)
+	list='$(SOURCES) $(HEADERS)'; \
+	unique=`for i in $$list; do echo $$i; done | \
+	  awk '    { files[$$0] = 1; } \
+	       END { for (i in files) print i; }'`; \
+	here=`pwd` && cd $(srcdir) \
+	  && mkid -f$$here/ID $$unique $(LISP)
+
+TAGS:  $(HEADERS) $(SOURCES)  $(TAGS_DEPENDENCIES) $(LISP)
+	tags=; \
+	here=`pwd`; \
+	list='$(SOURCES) $(HEADERS)'; \
+	unique=`for i in $$list; do echo $$i; done | \
+	  awk '    { files[$$0] = 1; } \
+	       END { for (i in files) print i; }'`; \
+	test -z "$(ETAGS_ARGS)$$unique$(LISP)$$tags" \
+	  || (cd $(srcdir) && etags $(ETAGS_ARGS) $$tags  $$unique $(LISP) -o $$here/TAGS)
+
+mostlyclean-tags:
+
+clean-tags:
+
+distclean-tags:
+	-rm -f TAGS ID
+
+maintainer-clean-tags:
+
+distdir = $(top_builddir)/$(PACKAGE)-$(VERSION)/$(subdir)
+
+subdir = src/elements
+
+distdir: $(DISTFILES)
+	@for file in $(DISTFILES); do \
+	  d=$(srcdir); \
+	  if test -d $$d/$$file; then \
+	    cp -pr $$/$$file $(distdir)/$$file; \
+	  else \
+	    test -f $(distdir)/$$file \
+	    || ln $$d/$$file $(distdir)/$$file 2> /dev/null \
+	    || cp -p $$d/$$file $(distdir)/$$file || :; \
+	  fi; \
+	done
+buysell.lo buysell.o : buysell.c ../module.h
+channel.lo channel.o : channel.c ../module.h
+comment.lo comment.o : comment.c ../module.h
+main_chart.lo main_chart.o : main_chart.c ../module.h
+momentum.lo momentum.o : momentum.c ../module.h
+movavg.lo movavg.o : movavg.c ../module.h
+rsi.lo rsi.o : rsi.c ../module.h
+trendline.lo trendline.o : trendline.c ../module.h
+x-axis.lo x-axis.o : x-axis.c ../module.h
+y-axis.lo y-axis.o : y-axis.c ../module.h
+
+info-am:
+info: info-am
+dvi-am:
+dvi: dvi-am
+check-am: all-am
+check: check-am
+installcheck-am:
+installcheck: installcheck-am
+install-exec-am: install-libLTLIBRARIES
+install-exec: install-exec-am
+
+install-data-am: install-buysellpropDATA install-commentpropDATA \
+		install-libchannelpropDATA install-mainchartpropDATA \
+		install-momentumpropDATA install-movavgpropDATA \
+		install-rsipropDATA install-trendlinepropDATA \
+		install-xaxispropDATA
+install-data: install-data-am
+
+install-am: all-am
+	@$(MAKE) $(AM_MAKEFLAGS) install-exec-am install-data-am
+install: install-am
+uninstall-am: uninstall-libLTLIBRARIES uninstall-buysellpropDATA \
+		uninstall-commentpropDATA uninstall-libchannelpropDATA \
+		uninstall-mainchartpropDATA uninstall-momentumpropDATA \
+		uninstall-movavgpropDATA uninstall-rsipropDATA \
+		uninstall-trendlinepropDATA uninstall-xaxispropDATA
+uninstall: uninstall-am
+all-am: Makefile $(LTLIBRARIES) $(DATA)
+all-redirect: all-am
+install-strip:
+	$(MAKE) $(AM_MAKEFLAGS) AM_INSTALL_PROGRAM_FLAGS=-s install
+installdirs:
+	$(mkinstalldirs)  $(DESTDIR)$(libdir) $(DESTDIR)$(buysellpropdir) \
+		$(DESTDIR)$(commentpropdir) \
+		$(DESTDIR)$(libchannelpropdir) \
+		$(DESTDIR)$(mainchartpropdir) \
+		$(DESTDIR)$(momentumpropdir) $(DESTDIR)$(movavgpropdir) \
+		$(DESTDIR)$(rsipropdir) $(DESTDIR)$(trendlinepropdir) \
+		$(DESTDIR)$(xaxispropdir)
+
+
+mostlyclean-generic:
+
+clean-generic:
+
+distclean-generic:
+	-rm -f Makefile $(CONFIG_CLEAN_FILES)
+	-rm -f config.cache config.log stamp-h stamp-h[0-9]*
+
+maintainer-clean-generic:
+mostlyclean-am:  mostlyclean-libLTLIBRARIES mostlyclean-compile \
+		mostlyclean-libtool mostlyclean-tags \
+		mostlyclean-generic
+
+mostlyclean: mostlyclean-am
+
+clean-am:  clean-libLTLIBRARIES clean-compile clean-libtool clean-tags \
+		clean-generic mostlyclean-am
+
+clean: clean-am
+
+distclean-am:  distclean-libLTLIBRARIES distclean-compile \
+		distclean-libtool distclean-tags distclean-generic \
+		clean-am
+	-rm -f libtool
+
+distclean: distclean-am
+
+maintainer-clean-am:  maintainer-clean-libLTLIBRARIES \
+		maintainer-clean-compile maintainer-clean-libtool \
+		maintainer-clean-tags maintainer-clean-generic \
+		distclean-am
+	@echo "This command is intended for maintainers to use;"
+	@echo "it deletes files that may require special tools to rebuild."
+
+maintainer-clean: maintainer-clean-am
+
+.PHONY: mostlyclean-libLTLIBRARIES distclean-libLTLIBRARIES \
+clean-libLTLIBRARIES maintainer-clean-libLTLIBRARIES \
+uninstall-libLTLIBRARIES install-libLTLIBRARIES mostlyclean-compile \
+distclean-compile clean-compile maintainer-clean-compile \
+mostlyclean-libtool distclean-libtool clean-libtool \
+maintainer-clean-libtool uninstall-buysellpropDATA \
+install-buysellpropDATA uninstall-commentpropDATA \
+install-commentpropDATA uninstall-libchannelpropDATA \
+install-libchannelpropDATA uninstall-mainchartpropDATA \
+install-mainchartpropDATA uninstall-momentumpropDATA \
+install-momentumpropDATA uninstall-movavgpropDATA \
+install-movavgpropDATA uninstall-rsipropDATA install-rsipropDATA \
+uninstall-trendlinepropDATA install-trendlinepropDATA \
+uninstall-xaxispropDATA install-xaxispropDATA tags mostlyclean-tags \
+distclean-tags clean-tags maintainer-clean-tags distdir info-am info \
+dvi-am dvi check check-am installcheck-am installcheck install-exec-am \
+install-exec install-data-am install-data install-am install \
+uninstall-am uninstall all-redirect all-am all installdirs \
+mostlyclean-generic distclean-generic clean-generic \
+maintainer-clean-generic clean mostlyclean distclean maintainer-clean
+
+
+# Tell versions [3.59,3.63) of GNU make to not export all variables.
+# Otherwise a system limit (for SysV at least) may be exceeded.
+.NOEXPORT:

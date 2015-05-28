@@ -1,0 +1,21 @@
+#!/bin/sh
+if test $# == 2; then
+	rm -f .tmppage;
+	wget -O.tmppage "http://www.stockwatch.de/dynamic/ascii.php3?wkn=$1";
+	wget -O$1.csv `grep -E '\.CSV.*Tagesdaten' .tmppage | sed 's/\(.*\)\(http.*CSV\)\(.*\)/\2/'`
+	swcsv2sql $1.csv $2 > $2.sql
+else
+cat <<EOF
+Usage:	swgetstock xxxxxx.y tablename
+	xxxxxx = wkn
+	y = 2 (FSE)
+	    3 (Xetra)
+	   10 (Hamburg)
+	   11 (Hannover)
+	   12 (Bremen)
+	   13 (Berlin)
+	   14 (Düsseldorf)
+	   15 (Stuttgart)
+	   16 (München)
+EOF
+fi

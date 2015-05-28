@@ -1,0 +1,32 @@
+#!/bin/bash
+
+if test $# == 2; then
+	
+	if test -a $1; then
+		awk '{  COMMA=2;
+			if (substr($0,1,1)=="\"") COMMA=$NF-2
+			else {
+				if (substr($0,1,1) ~ /[0-9]/) {
+					DATUM=$1;
+					VALUE=$2;
+					REALDATE=substr($1,1,4)"-"substr($1,5,2)"-"substr($1,7,2)" 18:00:00";
+					VALUE/=10^COMMA;
+					printf "insert into %s (time,value) values(\"%s\",%s);\n",tname,REALDATE,VALUE;\
+				}
+			}
+		     }' tname=$2 $1 > $1.sql
+	else
+		echo
+		echo	File does not exist...aborted
+		echo
+	fi
+
+else
+	echo	'Usage: txt2sql txtfile Tablename'
+	echo	'		txtfile is a txt file as found on'
+	echo	'			http://www-public.tu-bs.de:8080/~y0003876/index.html'
+	echo	'		Tablename is the name of the table in the resulting SQL script'
+	echo	'			-> it is case sensitive!'
+	echo	'		Output is: txtfile.sql'
+	exit 0
+fi	

@@ -1,0 +1,88 @@
+#!/bin/sh
+
+#first get the page with all the nemax stocks
+
+echo 'Getting list of Nemax stocks'
+
+wget -O.nmstocks "http://www.stockwatch.de/dynamic/branche.php3?dd_branche=4&g1=2&g2=0&liste_but.x=8&liste_but.y=8"
+
+# extract wkns needed for url to .wknlist
+#rm -f .wknlist
+grep 's_markets' .nmstocks | sed 's/\(.*wkn=\)\([0-9]*\)\(.*\)/\2/' > .wknlist
+
+for I in `cat .wknlist` ; do
+	echo "Getting $I";
+	rm -r .tmppage;
+	wget  -O.tmppage "http://www.stockwatch.de/dynamic/ascii.php3?wkn=$I.2";
+	wget  -Owkn_$I.csv `grep -E '\.CSV.*Tagesdaten' .tmppage | sed 's/\(.*\)\(http.*CSV\)\(.*\)/\2/'` &
+	sleep 2
+	# we now have a file called wkn_xxxxxx with a csv list of data
+done
+
+echo 'Online Data retrieval finished'
+
+#rm -f .stocks1 .stocks2 .stocks
+
+# first get the wkn and stock name into csv format. Do tr for lowercase chars. Had problems with this.
+grep s_markets .nmstocks | tr '[A-Z]' '[a-z]' | sed 's/\(.*wkn=\)\([0-9]*\)\(\">\)\(.*\)\(<\/a.*\)/\2;\4;/' > .stocks1
+
+# then get the wkn and the symbol into a different file
+grep 's_values_chart' .nmstocks | tr '[A-Z]' '[a-z]' | sed 's/\(.*wkn=\)\([0-9]*\)\(.*symbol=\)\(.*\)\(&charttype=.*\)/\2;\4;/' > .stocks2
+
+# join them together
+join -o 1.1 1.2 2.2 -t \; .stocks1 .stocks2 > .stocks
+#rm -f .stocks1 .stocks2
+
+# create an sql script to setup the stocks' tables and _Tablenames
+
+rm -f stockwatch.sql
+
+awk	'
+	BEGIN	{
+			FS=";";
+			printf "create table _TableNames (Name Text,TName Text,Comment Text,WKN Text,Symbol Text);\n";
+		}
+	(NR>0)	{
+			wkn=$1;
+			Name=$2;
+			Symbol=$3;
+			printf "insert into _TableNames (Name,TName,WKN,Symbol) values(\"%s\",\"wkn_%s\",\"%s\",\"%s\");\n",Name,wkn,wkn,Symbol;
+			printf "create table wkn_%s (value double,volume double,minimum double,maximum double,opening double,closing double,time timestamp primary key);\n",wkn;
+		}
+	' .stocks > stockwatch.sql
+	
+# append sql code to add the historical data that we retrieved	
+	
+for I in wkn*.csv ; do
+	awk	'
+		BEGIN	{	
+				FS=";";	
+			}	
+		(NR==1) {
+				wkn=substr($0,8,6);
+			}
+		(NR>1)	{	
+				 if (length($0)>10) {
+					gsub(/,/,".",$4);
+					gsub(/,/,".",$5);
+					gsub(/,/,".",$6);
+					gsub(/,/,".",$7);
+					gsub(/,/,".",$8);
+					gsub(/,/,".",$9);
+				
+					value=$4;	#tages-schlusskurs
+					volume=$9;
+					minimum=$8;
+					maximum=$7;
+					opening=$5;
+					closing=$4;
+				
+					split($2,date,".");
+				
+					time=date[3]"-"date[2]"-"date[1]" "$3;
+					printf "insert into wkn_%s (value,volume,minimum,maximum,opening,closing,time) values(%s,%s,%s,%s,%s,%s,\"%s\");\n",wkn,value,volume,minimum,maximum,opening,closing,time;
+				}
+			}
+		' $I >> stockwatch.sql
+done	
+	

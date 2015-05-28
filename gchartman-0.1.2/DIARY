@@ -1,0 +1,489 @@
+This is the diary of the development of my charting program. It is not always
+accurate. When more people get involved, I will start a GNU-style ChangeLog.
+
+07-Oct-2000:
+	Now that I have a real ChangeLog, this file will no longer be updated.
+	Please read the NEWS-file.
+
+24-Sep-2000:
+	Been sick. The new name of the program will be `Chartman', which was my
+	brother's idea (and it's a nice South Park reference). Now I need to change
+	a lot of things... Renamed the ChangeLog to DIARY. Later: investigation
+	shows that there's a frightful amount of "Chartman(R)"-software already
+	on the internet, so I decided to do a last rename to `gChartman'. Wether
+	the `g' stands for `GNOME' or for `GNU' is left open.
+
+21-Sep-2000:
+	Added a module displaying arbitrary text as well as an arrow. Any comment can
+	now be placed directly on the canvas, with an arrow pointing to relevant places.
+
+20-Sep-2000:
+	Did some polishing and added the possibility for modules to specify an
+	image file that will be used as icon in the toolbar of the chart window.
+	Also added pixmaps to the zooming buttons. NOTE: Need to reset the canvas'
+	scrolled window when switching to another stock.
+
+19-Sep-2000:
+	I'm planning a release this week. Fixed a bug in on_chart_stock_ce_changed,
+	now I have less crashes. Still no idea for a new name. Also sanitized the
+	position of y-axis ticks.
+
+18-Sep-2000:
+	Been working on a website for the program. I need to find a new name for it.
+	Charter is much to general, and there's lots of programs having that name
+	already. I'm not looking for trouble :) . There's still some bugs left,
+	some deadlocks and a few crashes... It'll be fine... soon...
+
+16-Sep-2000:
+	Had some severe breakage that had to be fixed. Everything is alright now.
+
+14-Sep-2000:
+	Added an appbar to the chart window. It displays the date and value of the day
+	that the mouse pointer is over. Somehow it reacts sluggish. It displays also
+	the difference in % of the last value and the value under the mouse pointer.
+	Wrote a buy-sell module, which displays the price and amount of stock bought/sold
+	at a specific time with an arrow and 2 numbers. A TODO: every canvas_item
+	that is ever created needs to be destroyed!!!
+
+13-Sep-2000:
+	Wrote a momentum indicator, because I needed it. The API is still evolving,
+	though. More changes will be needed to implement indicators on indicators
+	(for example a moving average of the momentum). I also made the scaling
+	buttons react differently to different mouse buttons. Also added the possibilty
+	to save the current view (e.g. zoom & scroll settings) in local configurations.
+	This is beginning to rock. I also added a hashtable as cache for table names,
+	and a hashtable to replace the linked list that stored CHARTTYPEs. Also
+	eliminated some of the redundant drawing... but not all of it. My create_quote_
+	vector optimization does not work yet. Later: Got it to work, but there's still
+	room for improvement.
+
+12-Sep-2000:
+	Now it is possible to write modules for indicators that need a separate
+	drawing area for themselves (RSI,Momentum,...). Changes were needed on the
+	x-axis, adjust_scroll_region() has been simplified and reorder_y_instances()
+	has been written. The new capability `new_area' is used to indicate the need
+	for a seperate drawing area. Later: Added an RSI indicator! Whoohoo!
+	Tomorrow I'll do a momentum. Btw, I wrote a spec file a few days ago. Weird
+	is that since I recompiled gtk/gnome with debugging symbols, my binaries
+	are huge! Stripping doesn't help :(
+
+11-Sep-2000:
+	Changed some stuff. Now one can view a different chart without leaving
+	the chartwindow by selecting category and stock from combos. Think I should
+	change the whole system to have more handlers which do stuff necessary
+	for their widget (alloc'ing & freeing stuff) instead of few handlers
+	that do a lot of stuff that's foreign to them. This would make everything
+	more object-oriented. Added comments. They can be set from the chart window,
+	and then appear in the tabletree. Unfortunately, they are not shown (in the
+	tabletree) at the start of the program. That is because I don't want to make
+	update_tablelist even slower. My plan for this slowness is to do some of the
+	work either on demand (tree_expand) or in the background (fork). Other speedups
+	planned	are a hash table as cache for _TableNames and a linked lists as cache for
+	the `_cat_%' tables plus a hash table to map category name to linked list.
+	create_quote_vector is also a target for optimization.
+
+08-Sep-2000:
+	Started work on comments and stock selection from the chart dialog.
+
+30-Aug-2000:
+	Discovered the mysql-function SOUNDEX(), which I now use to do a `fuzzy'
+	comparison in the unknown_stock_dialog. This facilitates the import
+	of data, as well as manual error-correction of videotext data. Matching
+	stocks are highlighted in the clist.
+
+29-Aug-2000:
+	The chart system is now saner. The time axis makes more sense now, because
+	every day defined as active in the trading time dialog is displayed.
+	Days with no data are marked. Interpolated data is provided for the
+	calculation of indicators. The trendline still needs to be fixed,
+	as well as the channel, which isn't ready anyway. UPDATE: Late at
+	night, I think I fixed the trendline. It might behave strangely when
+	you do unexpected stuff (like deleting the day from the database that
+	you created the trendline on). Yes, the creation day of a trendline has
+	to be saved in the database with the new charting system.
+
+21-Aug-2000:
+	Fixed a few bugs. The last days I added a dialog which is used to specify
+	trading times per category. The information will be used to mark up days
+	which do not have data, and to have more sensible time scaling. Data
+	gathered throughout the day will be aligned to the `edges' of the trading
+	time specified. I'm dropping intraday data support because it doesn't make
+	sense for indicators. I might add it back later.
+
+10-Aug-2000:
+	The timestamp of a row in a table is now set to the `last modification' time
+	of the file that stores the videotext page. Thus maximum error == time to
+	get the videotext pages (since alevt-cap saves when all pages are received)
+	+ 15 min legal offset. I might later try to read the time from the page header.
+	Fixed a ton of bugs. Now I can update my database without crashes.
+
+28-Jul-2000:
+	The channel element is coming along pretty well. There is no configuration
+	dialog, scaling has some issues and there is a problem when the channel is
+	exactly horizontal.
+
+27-Jul-2000:
+	Removed header files from chart elements. They don't need'em. This reduces
+	the file clutter. Started work on a channel element.
+
+26-Jul-2000:
+	Altered the trendline. It is now also movable by dragging the line itself.
+	Oh, and it is blue now (no config dialog yet). Added grids to the y-axis.
+	Made a better (but still ugly) algorithm for the calculation of the position
+	of ticks on the y-axis. Added `subgrids' to the x-axis. Unfortunately the
+	date that is displayed is very bogus. I guess you can't say that every
+	month is the same length afterall :)
+
+25-Jul-2000:
+	Finished a moving average that I had started to work on yesterday. Made
+	sure only 1 entry per day is sent to modules in the QuoteV vector.
+	Added an indicator to show wether a table already exists in the unknown_
+	stock_dialog. Improved the behaviour of this part somewhat by displaying
+	a tablename in tname_entry if it exists and an escaped name if it does
+	not exist. This means that for every keypress, a database query is done.
+	This might be slow if you use a remote database. I will add a hash table
+	as cache for this data sometime. Finally, I have found a source for
+	historical data. I got the URL from the `Beancounter' perl program.
+	It's actually at yahoo.com, and most importantly the author of beancounter
+	says that he's been using it for 1.5 years without trouble.
+
+24-Jul-2000:
+	The heisenbug seems to be eliminated. I moved some stuff to a handler
+	(`on_unknown_dialog_show'), which seems to have helped. This guarantees
+	that all the widgets that I'm trying to set up are properly initialized.
+	I think it worked most of the time because libglade does some widget
+	setup. There remains some experimental cruft that I added before finding
+	this solution. Have to sort out which of it is still needed.
+
+20-Jul-2000:
+	Save, Restore & Delete of global & local configurations is now possible.
+	Decided to put all the global configurations into 1 table, called
+	`__global_configs'. They differ by their name only, which I think is ok.
+	Local configurations are saved the same way, into tables called `_%s_configs'.
+	Added a configuration dialog to the main chart. Line width and color are
+	configurable.
+
+19-Jul-2000:
+	Did nothing about the heisenbug. Started work on saving configurations in
+	the database.
+
+17-Jul-2000:
+	Heisenbug time again. My on_unk_name_changed handler crashes sometimes
+	in the gtk_entry_get_text call. Very inconsistent behaviour. Worked
+	around it by disabling that part, which is bad for usability. This needs
+	to be fixed sometime. There's another bug in DisplayThisPage. Somehow it
+	segfaults sometimes in gnome_canvas_item_set. It does it only when corrections
+	have to be done to the videotext data.
+
+12-Jul-2000:
+	Added a clist of stocks to the dialog I did the day before yesterday.
+
+11-Jul-2000:
+	Fixed a bug where the program would crash when displaying the chart of a
+	stock with just 1 row of data. Chart elements may now have Data->group==NULL.
+
+10-Jul-2000:
+	Exams are over. Robustified the videotext parsing code. Everything works
+	much better now. When a reception error is detected (a `?' somewhere in
+	one of the fields of the videotext page), the user is shown a dialog where
+	he can correct the error. The same is done for new stocks that are not
+	yet in _TableNames. Fixed a rather serious bug in the parser part.
+
+28-Jun-2000:
+	Wrote a script (`swgetnemax'). It gets all the available historical quotes
+	from stockwatch.de from all stocks in the Nemax All Share and turns them
+	into a sql script. Haven't tested it online yet. If it works, you can
+	build up a new database really easily. I learned a lot about regular
+	expressions and sed. I hope they don't change their html layout too often...
+	Unfortunately the script needs to download a html file before every csv file.
+	This adds 20kB to every csv file, but it can't be helped now. Possibly the
+	script can be parallelized, such that it retrieves 5 files at the same time.
+	I might add that sometime.
+	Btw: www.livecharts.com seems to have good data too. Click on Chart->To Ascii.
+
+27-Jun-2000:
+	Stockwatch.de has csv files with historical quotes of stocks. They even
+	have highs, lows, openings, closings and volumes. Candlesticks!
+	Start here:
+	http://www.stockwatch.de/dynamic/branche.php3?dd_branche=4&g1=2&g2=0&liste_but.x=8&liste_but.y=8
+	for a list of all stocks and their WKN
+
+	then go here and find the link to the csv file:
+	http://www.stockwatch.de/dynamic/ascii.php3?wkn=xxxxxx
+	
+	the same exists there for dax & eurostoxx
+	
+
+25-Jun-2000:
+	Exams again. No time for code. Bad news: charts.neuer-markt.de is gone.
+	They changed some things after the creation of iX, and they keep pointing
+	to exchange.de, but I can't find anything of use there.
+
+15-Jun-2000:
+	I'm planning to do internet quote retrieval. Pretty cool: from nasdaq.com
+	one can download a file with all the companies that are listed and some
+	more data. This can be used to get the symbol, which can be used to get
+	quotes and historical quotes. Apparently the url for downloading of historical
+	quotes from neuer-markt.de has changed.
+
+14-Jun-2000:
+	Made videotext data go to '~/.charter/videotext/'. Directory is created if it
+	doesn't exist. TODO: add error-handling to every function that might fail.
+	Added error-handling to the videotext parsing stuff. Started work on a
+	dialog that is to be shown when a new stock is encountered.
+
+13-Jun-2000:
+	TODO: write videotext data into '~/.charter/videotext/'. How do I parse the '~' ?
+
+07-Jun-2000:
+	Added a configuration dialog to the x axis. Now you can set the color and
+	the font of the x axis. Quite a lot of work, but in the end everything works
+	out pretty well.
+
+06-Jun-2000:
+	Fixed some bugs left from yesterday. Wrote a gawk script (scripts/speku2sql)
+	to convert csv files from the windows `Spekulator' shareware program to sql
+	scripts. You need a recent version of `Spekulator' and the csv export module
+	to be able to export data to csv. Issues left are bad character conversion
+	by `recode' (problems with Ü, Ö, Ä, etc...).
+
+05-Jun-2000:
+	Quotes are now passed to modules as a vector (QuoteV) and a number of
+	quotes (QuoteC).
+
+01-Jun-2000:
+	Made elements return a structure to indicate their capabilities.
+
+31-May-2000:
+	Elements are now deleteable. Will switch from the a-lot-of-callback-functions
+	model to a fill-a-structure model for element capability management.
+	Decided to pass quotes through arrays instead of linked list. Will probably
+	be easier. About popup menus: As it seems, the user_data field from the
+	GnomeUIInfo structure is not passed to the callback function, but the user_
+	data field from the gnome_popup_menu_attach is passed. Doesn't matter much
+	anyway.
+
+29-May-2000:
+	Began work on the popup-menus that are to be used with the tree of chart-
+	elements. Unfortunately user_data isn't passed correctly to the callback
+	function.
+
+25-May-2000:
+	Did some clean-ups and some typedef'ing.
+
+22-May-2000:
+	Did some work on zooming. There's now a `rezoom' function in the modules.
+	The interface is not really stable now. Things change every day.
+
+20-May-2000:
+	Added a function to the modules: get_instance_name. This is used for names
+	that appear in the tree next to the chart. Examples would be:
+	`Moving average (20 Days)' or `Trend line (green)'. Made that particular tree
+	work more or less.
+
+16-May-2000:
+	Toolbar buttons now create new instances of chart elements. Chart elements
+	identify themselves with a string that they return through a function.
+	This allows for versioning of elements, and makes everything cleaner.
+
+14-May-2000:
+	Worked some on moveable chart elements. MPITA. Update: Got it working later,
+	in an easy way by using gnome_canvas_item_set instead of gnome_canvas_item_move.
+	Now I have a nice trendline that can be moved by dragging the ends of the line.
+	What needs to be done is the following: The trendline needs to be able to
+	recreate itself from a saved trendline_Data structure. Should not be *too* hard.
+	Later, I will carelessly store this data as `blob' in the database. 
+	The toolbar button of the trendline also needs to be attached somehow to
+	a creating function of the trendline, such that a new trendline can be created
+	for every click on the toolbar.
+
+13-May-2000:
+	Put some of the module handling into `Charter.c'. Made the DBConnect dialog
+	start up with the password field in focus, and made it handle `Enter' inside
+	the password field as if one clicked `OK', allowing for faster logins.
+
+12-May-2000:
+	Finally got back to do some coding. Created a toolbar in the chart window,
+	which will hold all the available chart types. They will be created by
+	clicking on the toolbar, and removed through a context menu in the List
+	of active elements. An idea: Move everything concerning the modules into
+	`Charter.c´. This will speed up chartwindow display and simplify code.
+
+18-Apr-2000:
+	Added a combobox to the videotext quote retrieval window. One can
+	specify one category per page, and the stocks from that page will
+	automatically go into that category.
+
+17-Apr-2000:
+	Cleaned up some of the mess. There are now 2 linked lists that are important:
+	TypeList and InstanceList. TypeList holds the module functions for the
+	different modules, and InstanceList holds the data per instance. Addendum:
+	Need to calculate the position for the x-axis ticks such that it sticks
+	to dates like 01.01.xxxx, 01.xx.xxxx, etc.
+
+12-Apr-2000:
+	Nailed down the nasty bug that prevented me from going on with the fun
+	stuff. Actually it was a pretty stupid bug. Hint: Never dlclose a module
+	before you use its functions. Now I need to think about how to implement
+	all this in a clean way (multiple chart elements). Late at night:
+	There is a way. Eventually, chart elements will have to rebuild themselves
+	from data that got stored for them in the database (persistence). So,
+	chart elements need a function for rebuilding themselves. Just as a note
+	of idea: There should be 2 Lists of "chart types". The first has all
+	the possible types of charts, with the addresses of their functions.
+	The second has the same, plus configuration data of that particular
+	instance of the chart type. God, this would be easier in OO. The second
+	could also have functions that are callbacked from the module to show
+	a configuration dialog. Lots of work needs to be done before the architecture
+	is truly modular. One thing to keep in mind is that writing modules should
+	not be too hard.
+
+11-Apr-2000:
+	Now use automake/autoconf/libtool. This took quite some time, and
+	it didn't solve my module-calling problem.
+
+03-Apr-2000:
+	Found a great site for stock quotes some days ago. It's located
+	at http://www-public.tu-bs.de:8080/~y0003876/index.html. Wrote
+	a quick script to put it's data into my database.
+
+24-Mar-2000:
+	Worked some more towards modularization. Started working on a tree
+	representing the structure of the charts currently displayed.
+	Somehow error_dialog displays the wrong message. Weird. I actually
+	put main_chart into a main_chart.so module, but at this time I am
+	somehow unable to call a function from the module.
+
+23-Mar-2000:
+	Finally fixed the videotext parsing bug. It was located in SetStockNames,
+	where a result set was (sometimes) freed twice. Did quite some work
+	towards modularization of chart parts. Added stuff to the user interface,
+	which allows the user to store global configurations for charts (available
+	for every chart) and local configurations, which are saved per-stock.
+	Addendum: As it seems, g_print wasn't the culprit after all.
+
+14-Mar-2000:
+	Videotext parsing is not 100% stable, therefore I made sure that
+	_vtsettings gets updated before parsing begins, so that the users
+	settings don't get lost if the program crashes during parsing.
+	Now I know why parsing was broken: g_print is broken again!
+	So I'm back to g_message. I need to check for badly received videotext
+	pages containing question marks.
+
+13-Mar-2000:
+	Currently I'm pretty clueless. I don't know how to modify a chart-element
+	once it has been created. Maybe I could destroy it and then create a
+	new one...
+
+03-Mar-2000 (???):
+	Implemented a timeout for the retrieval of videotext data. The length
+	of the timeout is not yet configurable. A nice progress bar displays
+	how much time there is left, and if alevt-cap does not return within
+	the timeout, it gets sent a nice SIGTERM.
+
+01-Mar-2000:
+	Converted the linked list of quotes that is used to give the data
+	to the indicator modules to a GList. These are pretty easy to handle,
+	and crash less often than my homebrewn linked lists. Sooner or later,
+	every self-made linked list will be replaced by a GList. I use glib
+	anyway and this way I can do something for entropy by re-utilising
+	existing code. Also moved the main chart into the "elements" directory.
+	Right now I have billions of memory leaks. The problem is that destroying
+	a GnomeCanvasGroup does *not* recursively free all the GnomeCanvasItems
+	in that Group. I might have to store a "GList of GLists" for every
+	graphical element of a chart, containing *all* the data describing that
+	element. Update: Now "createxxx" returns a structure containing its
+	group and a GList of everything that needs to be freed to avoid memory
+	leaks. Cleaned up lots of the memory leaks, broke something. After
+	closing the chart window, somehow the string containing the stock name
+	in the TableTree gets lost.Fixed a bug where a failed mysql-login would
+	crash the program. Update: Fixed the allocation bug (did one too many
+	g_free() in one of the kludges). Update: Cleaned up some stuff.
+	Suddenly I tripped over "gnome_canvas_points_free", which solved a lot
+	of my problems.
+
+29-Feb-2000:
+	The X axis is now working pretty well. Scaling is not yet implemented
+	though. Started moving stuff into different directories.  Graphical
+	elements of the chart are going into "./elements". Later: Cloned the
+	X-axis code to make an Y-axis. Without scaling, too. Turned the singly
+	linked list of Quotes that is passed to indicators into a doubly
+	linked list, fixing a bug.
+
+27-Feb-2000:
+	More work on chart display. Started doing axis display.
+
+23-Feb-2000:
+	Worked some more on the chart display. Drag & drop has a problem:
+	There is no automatic scrolling in the TableTree. It is impossible
+	to drag something to some place not visible right now. Who's problem
+	is this? Mine? Gtk's? I dunno.
+
+22-Feb-2000:
+	Worked on the chart display mechanism. Also wrote a script that
+	gets a csv-file from www.neuer-markt.de containing one value
+	and one volume for every day that a stock has been on the market.
+	The csv-file is transformed into an sql-script using awk. This
+	is really a good way to get old quotes from stocks that I'm interested
+	in.
+
+13-Feb-2000:
+	Drag and Drop is now pretty stable and has consistent behaviour.
+	Duplications no longer occur. No more vanishing also.
+
+08-Feb-2000:
+	Solidified some more drag & drop stuff. Still behaves bad though.
+	Things shouldn't vanish from "All Stocks" when they get dragged out
+	of it, and things shouldn't duplicate in the CTree when they are
+	dragged twice to the same place. They don't duplicate in the database
+	because I check for that case. There are now seperate functions for
+	looking up category names, which are more failproof.
+
+07-Feb-2000:
+	Hacked away at the drag & drop code. Managed to get stuff draggable
+	from/to places with checking where it came from/goes to.
+
+03-Feb-2000:
+	Added the "Delete Stock" and "Add Category" buttons. They will help
+	manage the CTree that lists all the stocks. Now use a table with
+	aliases (_TableNames) to display a prettier name for the stocks.
+	There are functions for looking up both kinds of names in the table.
+	Had to fix some weirdness in GLib. Now I need to see if there is a newer
+	version, if not I'll have to send the patch to the GLib people. Having
+	worked-around the GLib bug, started looking at drag n'drop stuff,
+	to make reordering of stocks less arbitrary and limit it to 1 level of
+	tree deepness. Adding Categories works, deleting stocks does not yet.
+	I need pixmaps for my toolbar.
+
+02-Feb-2000:
+	Exams are over. Replaced the CList that displays the stocks in the
+	database by a CTree. This will become a possibility to put stocks
+	into different categories.
+
+21-Jan-2000:
+	Made the program fail graciously when alevt-cap has problems.
+	Now have a scrolling canvas to put charts in.
+
+20-Jan-2000:
+	Added function comments to all of getvtquotes.c. Now nearly everything is
+	commented. Not much time for coding due to exams. Worked a bit on the UI,
+	and started the charting program part.
+
+14-Jan-2000:
+	I wonder if a bison-generated parser would be good to parse the video-
+	text pages. Fixed some bugs in get_string in the meantime.
+
+08-Jan-2000:
+	Added some more function comments to ConnectDB.h, about.c and about.h.
+
+07-Jan-2000:
+	I wonder if awk could be used to parse the Videotext pages. It could
+	really simplify things. Have to get some docs. Added function comments
+	to Charter.c, Charter.h and ConnectDB.c.
+	
+04-Jan-2000:
+	Started the changelog. Fixed lots of bugs. The program now actually
+	works. It gets videotext pages using alevt-cap, reads stock market
+	quotes from them and saves them to a MySQL database.
+
+Development started mid-december 1999.

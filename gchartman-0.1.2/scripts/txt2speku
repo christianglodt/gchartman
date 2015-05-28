@@ -1,0 +1,30 @@
+#!/bin/bash
+
+if test $# == 1; then
+	
+	if test -a $1; then
+		awk '{  COMMA=2;
+			if (substr($0,1,1)=="\"") COMMA=$NF-2
+			else {
+				if (substr($0,1,1) ~ /[0-9]/) {
+					DATUM=$1;
+					VALUE=$2;
+					REALDATE=substr($1,1,4)"-"substr($1,5,2)"-"substr($1,7,2);
+					VALUE/=10^COMMA;
+					printf "%s,%s,\n",REALDATE,VALUE;\
+				}
+			}
+		     }' $1 > $1.spekucsv
+	else
+		echo
+		echo	File does not exist...aborted
+		echo
+	fi
+
+else
+	echo	'Usage: txt2sql txtfile'
+	echo	'		txtfile is a txt file as found on'
+	echo	'			http://www-public.tu-bs.de:8080/~y0003876/index.html'
+	echo	'		Output is: txtfile.spekucsv for import in the Spekulator program'
+	exit 0
+fi	

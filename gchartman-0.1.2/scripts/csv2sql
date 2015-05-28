@@ -1,0 +1,32 @@
+#!/bin/bash
+
+if test $# == 2; then
+	
+	if test -a $1.csv; then
+		recode ibmpc..lat1 $1.csv
+		awk 'BEGIN     {FS=";"}; \
+		     (NR > 4)  {sub(/\./,"",$2); 	#Dot to nothing in value\
+		     	        gsub(/,/,".",$2); 	#Comma to dot in value\
+			        gsub(/\./,"",$4); 	#all dots to nothing in volume\
+			        gsub(/"/,"",$1);  	#all quotes to nothing in everything\
+			        gsub(/"/,"",$2); \
+			        gsub(/"/,"",$4); \
+					split($1,a,".");	#split date from Day.Month.Year\
+					$1=a[3]"-"a[2]"-"a[1];	#reassemble as Year-Month-Day\
+			        $1=$1" 18:00:00";	#add time to date\
+			        if ($0 !~ /(C)/)	#Filter out last line\
+				printf "insert into %s (time,value,volume) values(\"%s\",%s,%s);\n",tname,$1,$2,$4;\
+			    }' tname=$2 $1.csv > $1.sql
+	else
+		echo
+		echo	File does not exist...aborted
+		echo
+	fi
+
+else
+	echo	'Usage: csv2sql Stockname Tablename'
+	echo	"		Stockname should be \`xxx.FSE'"
+	echo	'		Tablename is the name of the table in the resulting SQL script'
+	echo	'		Output is: Stockname.csv, Stockname.sql'
+	exit 0
+fi	

@@ -1,0 +1,32 @@
+To install this example database for the gChartman program,
+take the following steps:
+
+1) Install MySQL. Make sure you have a MySQL-account with
+   the needed privileges (create, drop, insert, select, delete).
+   Test it by executing
+   
+   mysql -u <username> -p
+   
+   Enter your password, and you will be given a "mysql> " prompt.
+   If this works, you can exit by hitting Ctrl-D.
+
+2) Second you need to create a database. Start the MySQL monitor
+   from a shell:
+   
+   mysql -u <username> -p
+   
+   At the "mysql> " prompt type:
+
+   create database <dbname>;
+   
+   Use whatever name you wish as <dbname>, but make sure you remember it.
+
+3) To create the database, execute the following:
+
+   mysql -u <username> -p <dbname> < example-db.sql
+   
+   You will be asked for your password, and the sql-script will be executed.
+
+Now the database is set up. Once you have started gChartman, hit the "Connect"
+button, and enter your username, password and the dbname you used earlier in
+the corresponding entries.

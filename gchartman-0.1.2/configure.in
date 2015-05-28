@@ -1,0 +1,100 @@
+dnl Process this file with autoconf to produce a configure script.
+
+AC_INIT(src/gchartman.c)
+AM_INIT_AUTOMAKE(gchartman, 0.1.2)
+GCHARTMAN_VERSION="0.1.2"
+
+dnl Checks for programs.
+AC_PROG_CC
+AC_PROG_INSTALL
+AC_PROG_LN_S
+
+AC_LIBTOOL_DLOPEN
+AM_PROG_LIBTOOL
+
+AM_PATH_GLIB(1.2.0,,,)
+AM_PATH_GTK(1.2.0,,,)
+
+AC_PATH_PROG(gnomepath, gnome-config)
+AC_MSG_CHECKING(for Gnome compile flags)
+GNOME_CFLAGS=`$gnomepath gnomeui --cflags 2>/dev/null`
+GNOME_LDFLAGS=`$gnomepath gnomeui --libs 2>/dev/null`
+GNOME_PREFIX=`$gnomepath --prefix 2>/dev/null`
+AC_MSG_RESULT(ok)
+
+AC_PATH_PROG(XML_CONFIG,xml-config,no)
+if test x$XML_CONFIG = xno; then
+  AC_MSG_ERROR(Couldn't find xml-config)
+fi
+XML_LIBS=`xml-config --libs`
+XML_CFLAGS=`xml-config --cflags`
+AC_SUBST(XML_LIBS)
+AC_SUBST(XML_CFLAGS)
+
+AC_PATH_PROG(libgladepath, libglade-config)
+AC_MSG_CHECKING(for libglade compile flags)
+LIBGLADE_CFLAGS=`$libgladepath --cflags 2>/dev/null`
+LIBGLADE_LDFLAGS=`$libgladepath --libs gnome 2>/dev/null`
+AC_MSG_RESULT(ok)
+
+LIBS="$LIBS $GNOME_LDFLAGS $LIBGLADE_LDFLAGS"
+dnl CFLAGS="$CFLAGS $GNOME_CFLAGS $LIBGLADE_CFLAGS" -- dump old CFLAGS
+dnl because we need our own
+
+CFLAGS="$GNOME_CFLAGS $LIBGLADE_CFLAGS"
+
+AC_ARG_ENABLE(debug,[  --disable-debug],,enable_debug=yes)
+if test "$enable_debug" = "yes"
+then
+	CFLAGS="$CFLAGS -ggdb";
+else
+	CFLAGS="$CFLAGS -s";
+fi
+
+AC_ARG_ENABLE(optimize,[  --enable-optimize],,enable_optimize=no)
+if test "$enable_optimize" = "yes"
+then
+	CFLAGS="$CFLAGS -O6 -fomit-frame-pointer"
+fi
+
+dnl Checks for libraries.
+dnl Replace `main' with a function in -lX11:
+AC_CHECK_LIB(X11, main)
+AC_CHECK_LIB(Xext, main)
+AC_CHECK_LIB(dl, main)
+AC_CHECK_LIB(gdk, main)
+AC_CHECK_LIB(glib, main)
+AC_CHECK_LIB(gmodule, main)
+AC_CHECK_LIB(gtk, main)
+AC_CHECK_LIB(m, main)
+AC_CHECK_LIB(xml, xmlInitParser,,AC_MSG_ERROR("\
+xmlInitParser not found in libxml. You need at least libxml2-2.2.7 \
+\(Earlier libxml2 versions may work though\). Try http://www.xmlsoft.org/ ."))
+AC_CHECK_LIB(mysqlclient, main)
+
+plugindir=$libdir/gchartman
+AC_SUBST(plugindir)
+AC_SUBST(GNOME_PREFIX)
+AC_SUBST(GCHARTMAN_VERSION)
+
+dnl Checks for header files.
+AC_HEADER_SYS_WAIT
+AC_CHECK_HEADERS(fcntl.h unistd.h)
+
+AC_CHECK_HEADER(glade/glade.h)
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+AC_TYPE_PID_T
+AC_STRUCT_TM
+
+dnl Checks for library functions.
+AC_HEADER_STDC
+AC_FUNC_STRFTIME
+AC_CHECK_FUNCS(strdup)
+
+AC_OUTPUT(pixmaps/Makefile scripts/Makefile src/elements/Makefile src/Makefile Makefile gchartman.spec)
+
+echo -e "\n\tInstall prefix:\t$prefix"
+echo -e "\tGnome prefix:\t$GNOME_PREFIX"
+echo -e "\tDebug:\t\t$enable_debug"
+echo -e "\tOptimize:\t$enable_optimize\n"

@@ -1,0 +1,231 @@
+2000-12-17 Christian Glodt <cglodt@users.sourceforge.net>
+
+	* src/connectdb.c, src/gchartman.c: fixed the trading time button, which
+	  would crash if no category was selected or no database open.
+	  
+	* src/gchartman.c: changed sensitivity of some buttons to be make it more
+	  meaningful.
+
+	* src/chartwindow.c: added some xmlEncodeEntitiesReentrant() calls to
+	  try to encode latin chars like ü, ö, ä, etc. Unfortunately this crashes
+	  sometimes.
+
+2000-12-14 Christian Glodt <cglodt@users.sourceforge.net>
+
+	* src/chartwindow.c, src/elements/movavg.c: fixed loading/saving problems,
+	  probably in a leaky way, this needs some testing.
+
+	* src/elements/rsi.c: ported to new module interface.
+
+	* src/connectdb.c: fixed a bug where a segfault would occur if the user
+	  cancels the `create new database?'-dialog.
+	  
+	* src/elements/movavg.c: added code to prevent the moving average from scaling
+	  when it is a child of something with caps->new_area==TRUE.
+
+2000-12-13 Christian Glodt <cglodt@users.sourceforge.net>
+
+	* src/elements/*.c: namespace fixes (made global variables static)
+	
+	* src/elements/comment.c: ported to new module interface. Currently
+	  unable to save more than 1 line of comment (libxml issue).
+
+	* configure.in: added error message if libxml2 is not found (check for
+	  xmlInitParser which is in 2.2.7 but not in 1.8.10).
+
+2000-12-11 Christian Glodt <cglodt@users.sourceforge.net>
+
+	* src/elements/main_chart.c: namespace fixes (global variables prefixed)
+
+	* src/elements/buysell.c: adapted to new module interface
+	
+	NOTE: every module needs namespace fixes and/or adaption to new interface
+
+2000-11-26 Christian Glodt <cglodt@users.sourceforge.net>
+
+	* src/chartwindow.c, src/elements/movavg.c: adapted movavg.c to new module
+	  interface.
+
+2000-11-22 Christian Glodt <cglodt@users.sourceforge.net>
+
+	* src/chartwindow.c(recursive_recreate_instances, find_charttype):
+	  modified such that a configuration can be loaded even if a module contained
+	  in the configuration is missing. 
+
+	* src/elements/*.c: IMPORTANT! Any `global' functions in modules must be prefixed
+	  to avoid duplicate symbols. If this is not respected, the wrong functions might
+	  be called.
+	  
+	* src/elements/y-axis.c, src/elements/trendline.c: adapted to new module interface.
+
+2000-11-22 Christian Glodt <cglodt@users.sourceforge.net>
+
+	* src/gchartman.c: do not exit() when a module is broken but ignore it.
+	  module interface seems to stabilize a bit. X-axis and main_chart have
+	  been adapted to the new (preliminary) interface.
+
+2000-11-20 Christian Glodt <cglodt@users.sourceforge.net>
+
+	* src/chartwindow.c, src/module.h, src/chartwindow.h, src/elements/main_chart.c:
+	  started a big rewrite of the module interface.
+
+2000-11-19 Christian Glodt <cglodt@users.sourceforge.net>
+
+	* src/chartwindow.c: fixed global & local configuration loading in
+	  recursive_recreate_instances.
+	
+2000-11-15 Christian Glodt <cglodt@users.sourceforge.net>
+
+	* src/chartwindow.c: reorder_calc_offset is now renamed to reorder_move_instances
+	  and the original _reorder_move_instances is gone with the rest of the old cruft.
+	  Reordering problems seem to be fixed now. Added local config saving & deleting.
+
+2000-11-15 Christian Glodt <cglodt@users.sourceforge.net>
+
+	* src/chartwindow.c: changes to reorder_calc_offset but new behaviour
+	  planned, changes are to be reverted.
+
+2000-11-14 Christian Glodt <cglodt@users.sourceforge.net>
+
+	* src/chartwindow.c: reorder_calc_offset changes, behaviour still unfixed.
+
+2000-11-09 Christian Glodt <cglodt@users.sourceforge.net>
+
+	* src/chartwindow.c, src/module.h, src/elements/*.c: fixed zooming
+	  problems. Changes in redraw_chart, on_instance_properties_button_clicked.
+
+2000-11-03 Christian Glodt <cglodt@users.sourceforge.net>
+
+	* src/chartwindow.c:  finally fixed reorder_y_instances. zooming
+	  is still broken.
+
+2000-10-23 Christian Glodt <cglodt@users.sourceforge.net>
+
+	* src/chartwindow.[ch]: added ChartInstance->quote_vector and
+	  ChartInstance->quote_count. Modules are free to modify quote_vector.
+
+	* src/chartwindow.c: need to reorder children of parents that are moved
+	  correctly.
+
+2000-10-19 Christian Glodt <cglodt@users.sourceforge.net>
+
+	* src/*: migrated to libxml2-2.2.5. This fixes some of the entity
+	  related problems, x-axis can actually put the fontname into an xml
+	  property now.
+	  
+	* src/elements/comment.c: save the text as xml-node content. This is
+	  a kludge, as it is the only way I found to save the text without crashing
+	  at entity translation. Instead of crashing, it swallows the weird characters
+	  (&,ä,ö,ü) now :(
+
+2000-10-18 Christian Glodt <cglodt@users.sourceforge.net>
+
+	* src/chartwindow.c, src/elements/*.c: implemented global config
+	  loading/deleting from xml file.
+
+2000-10-17 Christian Glodt <cglodt@users.sourceforge.net>
+
+	* src/chartwindow.c, src/gchartman.c, src/elements/*.c: added xml
+	  support for global configurations (no loading from xml yet).
+	  Still problems with entities. Note: Modules will modify a copy of
+	  quote_vector that will be stored in their ChartInstance.
+
+2000-10-15 Christian Glodt <cglodt@users.sourceforge.net>
+
+	* src/chartwindow.[ch]: removed instance_list. The
+	  chart_structure_ctree is now the container for the item instances.
+	  To get the ChartInstance* , use gtk_ctree_node_get_row_data.
+
+	* src/getvtquotes.c, src/gchartman.c: moved creation of ~/.gchartman
+	  directory to start of program. ~/.gchartman/videotext is only created
+	  when capturing videotext data.
+
+	* src/chartwindow.c(save_chart_instance): started the basic functionality
+	  for xml configuration storage support.
+
+2000-10-14 Christian Glodt <cglodt@users.sourceforge.net>
+
+	* src/*.[ch]: replaced the chart structure tree with a ctree. This
+	  will allow for drag'n' drop later. Added instance_delete_button and
+	  instance_properties_button because there's no more context menu.
+	  Modified create_from_toolbar and add_chart_instance.
+
+2000-10-12 Christian Glodt <cglodt@users.sourceforge.net>
+
+	* src/elements/*.c: gnu-ified function and variable names.
+
+2000-10-11 Christian Glodt <cglodt@users.sourceforge.net>
+
+	* src/*.[ch]: gnu-ified function and variable names.
+
+2000-10-10 Christian Glodt <cglodt@users.sourceforge.net>
+
+	* chartwindow.c: replaced some mallocs with allocas.
+	
+	* chartwindow.c(create_quote_vector): fixed off-by-one bug that
+	  sometimes crashed the program with particular stocks. There's
+	  still some weirdness (see chart of 4MBO), but at least it's
+	  not crashing.
+	
+	* chartwindow.h, module.h, src/elements/*.c:
+	  split the old chartwindow.h into module.h and chartwindow.h.
+	  modules only include module.h.
+
+	* gchartman.h: gnu-ified all variable and function names.
+	
+	* getvtquotes.h: gnu-ified all struct member names.
+
+2000-10-08 Christian Glodt <cglodt@users.sourceforge.net>
+
+	* configure.in: incremented version to 0.1.1
+
+2000-10-07 Christian Glodt <cglodt@users.sourceforge.net>
+
+	* src/chartwindow.c (on_chart_stock_ce_changed): check for empty
+	  stock name entry. Should probably fail more gracely  on
+	  MySQL problems...
+
+	* gchartman.glade: added stock_split_dialog.
+
+	* src/chartwindow.c: added functions for stock splitting.
+
+2000-10-06 Christian Glodt <cglodt@users.sourceforge.net>
+
+	* src/chartwindow.c src/chartwindow.h src/elements/*.c:
+	  elements save the QuoteVector pointer and QuoteC in their
+	  data structs.
+
+2000-10-05 Christian Glodt <cglodt@users.sourceforge.net>
+
+	* src/gchartman.c (GetStockName, GetCategoryName, GetCategoryTName):
+	  fixed memory allocation related bug.
+
+	* src/gchartman.c (SetStockNames): fixed malloc related bug.
+	
+	* src/chartwindow.c (save_chart_instance): fixed off by one bug.
+
+2000-10-04 Christian Glodt <cglodt@users.sourceforge.net>
+
+	* configure.in: display information when done and find gnome-prefix
+
+	* Makefile.am: use gnome-prefix to always install desktop entry to
+	  the right place.
+
+	* src/elements/channel.c(reset_from_data,get_pdata,create_new,...):
+	  fixed some stuff. Channel works again, but scaling still
+	  needs to be fixed (geometry issues).
+
+2000-10-01 Christian Glodt <cglodt@users.sourceforge.net>
+
+	* Makefile.am, gchartman.spec.in, configure.in: added --disable-debug
+	  and --enable-optimize options.
+
+	* scripts/swgetstock: added this script
+
+	* scripts/Makefile.am: added the swgetstock script
+
+2000-09-27 Christian Glodt <cglodt@users.sourceforge.net>
+	
+	* Makefile.am, gchartman.spec.in: added gchartman.desktop entry
+
+	* gchartman.spec.in: fixed scripts directory

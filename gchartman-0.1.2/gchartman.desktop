@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=gChartman
+Comment=Technical stock analysis tool
+Exec=gchartman
+Terminal=0
+Type=Application
