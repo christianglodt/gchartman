@@ -11,7 +11,7 @@ The main window shows a categorized list of stocks. The data is saved in a MySQL
 
 ### Stock Chart Analysis Window
 This is the UI for viewing and annotating charts of stock prices. You can put indicators on the main chart curve (moving average, RSI, momentum).
-You can also stack indictors, to get eg. a moving average of an RSI indicator. You can also freely place trendlines, and annotate the chart with
+You can also stack indicators, to get eg. a moving average of an RSI indicator. You can also freely place trendlines, and annotate the chart with
 comments and buy/sell indicators.
 
 ![Stock Chart Analysis Window](/screenshots/ss_0.1.2_emtv.png?raw=true)
